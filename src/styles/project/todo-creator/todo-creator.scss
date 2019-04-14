@@ -23,14 +23,14 @@
         outline: none;
 
         visibility: hidden;
-        background: url(../../../images/select-all.png) no-repeat 0 0;
+        background: url(../images/select-all.png) no-repeat 0 0;
         }
 
         @media (-webkit-min-device-pixel-ratio: 1.5),
                (min-resolution: 120dpi),
                (min-resolution: 1.5dppx) {
             .todo-creator_check-all {
-                background: url(../../../images/select-all@2x.png) no-repeat 0 0;
+                background: url(../images/select-all@2x.png) no-repeat 0 0;
                 }
             }
 

@@ -1,54 +1,51 @@
 {
-  "name": "todo-polis-2018",
-  "version": "0.0.1",
-  "description": "",
-  "main": "./src/js/index.js",
+  "name": "webpack-starter",
+  "version": "1.0.0",
+  "description": "A light foundation for your next frontend project based on webpack.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node --inspect ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --config webpack.config.js"
+    "build": "webpack --config webpack/webpack.config.prod.js  --colors",
+    "start": "webpack-dev-server --open --config webpack/webpack.config.dev.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/ok-technopolis-autumn-2018/Dmitry_Makhnev.git"
+    "url": "git+https://github.com/wbkd/webpack-starter.git"
   },
-  "author": "Dmitry Makhnev",
+  "keywords": [
+    "webpack",
+    "startkit",
+    "frontend",
+    "es6",
+    "javascript",
+    "webdev"
+  ],
+  "author": "webkid.io",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ok-technopolis-autumn-2018/Dmitry_Makhnev/issues"
+    "url": "https://github.com/wbkd/webpack-starter/issues"
   },
-  "homepage": "https://github.com/ok-technopolis-autumn-2018/Dmitry_Makhnev#readme",
   "devDependencies": {
-    "autoprefixer": "^8.6.5",
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-plugin-transform-react-jsx-self": "^6.22.0",
-    "babel-plugin-transform-react-jsx-source": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-1": "^6.24.1",
-    "case-sensitive-paths-webpack-plugin": "^2.1.2",
-    "clean-webpack-plugin": "^0.1.19",
-    "css-loader": "^1.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "file-loader": "^1.1.11",
-    "html-webpack-plugin": "^3.2.0",
-    "json-beautify": "^1.0.1",
-    "jsonfile": "^4.0.0",
-    "jsx-control-statements": "^3.2.8",
-    "node-sass": "^4.9.2",
-    "postcss-loader": "^2.1.6",
-    "resolve-url-loader": "^3.0.0",
-    "sass-loader": "^7.0.3",
-    "style-loader": "^0.21.0",
-    "uglifyjs-webpack-plugin": "^1.2.7",
-    "webpack": "^4.16.0",
-    "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-cli": "^3.0.8",
-    "webpack-dev-server": "^3.1.4"
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-loader": "^8.0.5",
+    "clean-webpack-plugin": "^2.0.1",
+    "copy-webpack-plugin": "^5.0.2",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-loader": "^2.1.2",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^4.0.0-beta.5",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "@babel/polyfill": "^7.4.0"
   }
 }

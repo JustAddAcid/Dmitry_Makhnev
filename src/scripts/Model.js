@@ -49,7 +49,10 @@ export default class Model {
         const self = this;
         return new Promise(function(resolve, reject){
             const xhr = new XMLHttpRequest();
+            const token = document.querySelector("meta[name='_csrf']").getAttribute('content');
+            const header = document.querySelector("meta[name='_csrf_header']").getAttribute('content');
             xhr.open(method, self.path, true);
+            xhr.setRequestHeader(header,token);
             xhr.send(self._getFormData(data));
             xhr.onreadystatechange = function(){
                 if (xhr.readyState !== 4) return;
@@ -75,15 +78,4 @@ export default class Model {
         Object.keys(object).forEach(key => formData.append(key, object[key]));
         return formData;
     }
-    // На будущее
-    // _getURLParam(object = {}){
-    //     let str = "";
-    //     for (let key in obj) {
-    //         if (str != "") {
-    //             str += "&";
-    //         }
-    //         str += key + "=" + encodeURIComponent(object[key]);
-    //     }
-    //     return str;
-    // }
 };

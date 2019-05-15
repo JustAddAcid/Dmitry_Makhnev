@@ -1,4 +1,3 @@
-import gen from "./utils/DOMGenerator";
 import TodoList from "./TodoList";
 import TodoGenerator from "./TodoGenerator";
 import StatusBar from "./StatusBar";
@@ -12,7 +11,7 @@ export default class Todo {
      * @memberOf Todo
      */
     constructor(parentNode){
-        this.DOMNode = this.render(parentNode);
+        this.DOMNode = this.connectToDOM(parentNode);
 
         this.todoList = new TodoList(this.DOMNode);
         this.todoGenerator = new TodoGenerator(this.DOMNode, this.todoList);
@@ -29,8 +28,13 @@ export default class Todo {
      * 
      * @memberOf Todo
      */
-    render(parentNode){
-        this._board = gen('div', {className : 'todo-board'});
-        return parentNode.appendChild(this._board);
+    // render(parentNode){
+    //     this._board = gen('div', {className : 'todo-board'});
+    //     return parentNode.appendChild(this._board);
+    // }
+
+    connectToDOM(parentNode){
+        this._board = parentNode.querySelector('.todo-board');
+        return this._board;
     }
 };

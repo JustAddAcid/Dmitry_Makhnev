@@ -1,6 +1,5 @@
 import ArrayEventable from "./utils/ArrayEventable";
 import TodoListItem from "./TodoListItem";
-import gen from "./utils/DOMGenerator";
 import Eventable from "./utils/Eventable";
 import Model from "./Model";
 
@@ -13,15 +12,22 @@ export default class TodoList extends Eventable {
      */
     constructor(parentNode){
         super();
-        this.DOMNode = this.render(parentNode);
+        this.DOMNode = this.connectToDOM();
         this.items = new ArrayEventable();
         this.model = new Model;
 
-        this.model.read().then(data => {
-            data.forEach(todo => {
-                this.renderItem(todo.id, todo.description, todo.isChecked);
-            })
-        });
+        const todos = document.querySelectorAll('.todos-list_item');
+        for (let todo of todos){
+            let id = todo.dataset.id;
+            let text = todo.querySelector('textarea').value;
+            let isChecked = todo.querySelector('input').checked;
+            this.createItemWithoutRender(id, text, isChecked, todo);
+        }
+        // this.model.read().then(data => {
+        //     data.forEach(todo => {
+        //         this.renderItem(todo.id, todo.description, todo.isChecked);
+        //     })
+        // });
     }
     /**
      * 
@@ -30,11 +36,16 @@ export default class TodoList extends Eventable {
      * 
      * @memberOf TodoList
      */
-    render(parentNode){
-        return parentNode.appendChild(
-            gen('div', {className : 'todos-list'})
-        );
+    // render(parentNode){
+    //     return parentNode.appendChild(
+    //         gen('div', {className : 'todos-list'})
+    //     );
+    // }
+
+    connectToDOM(){
+        return document.querySelector('.todos-list');
     }
+
     /**
      * 
      * 
@@ -57,6 +68,7 @@ export default class TodoList extends Eventable {
     addItem(text, isChecked){
         this.model.create(text).then(data => {
             const item = new TodoListItem(this.DOMNode, text, data.id, isChecked);
+            item.render();
             item.on('remove', ()=> this.removeItem(item));
             item.on('change', ()=> this.trigger('itemchanged'));
             this.items.push(item);
@@ -76,8 +88,9 @@ export default class TodoList extends Eventable {
      * @return {void}
      * @memberof TodoList
      */
-    renderItem(id, text, isChecked){
-        const item = new TodoListItem(this.DOMNode, text, id, isChecked);
+    createItemWithoutRender(id, text, isChecked, itemNode){
+        const item = new TodoListItem(this.DOMNode, text, id, isChecked, itemNode);
+        item.connectToDOM();
         item.on('remove', ()=> this.removeItem(item));
         item.on('change', ()=> this.trigger('itemchanged'));
         this.items.push(item);
@@ -87,6 +100,7 @@ export default class TodoList extends Eventable {
         }
         return item;
     }
+
     /**
      * Удаляет элемент item из TodoList
      * 

@@ -12,14 +12,18 @@ export default class TodoListItem extends Eventable {
      * 
      * @memberOf TodoListItem
      */
-    constructor(parentNode, text, id, isChecked){
+    constructor(parentNode, text, id, isChecked, DOMNode){
         super();
         this.model = new Model();
-        this.DOMNode = this.render(parentNode);
+        // this.DOMNode = this.render(parentNode);
+        this.parentNode = parentNode;
+        this.DOMNode = DOMNode;
 
         this.isChecked = !!isChecked;
         this.text = text;
         this.id = id;
+
+        this.textVal = text;
     }
 
     // Кустарный вариант двустороннего биндинга
@@ -64,7 +68,7 @@ export default class TodoListItem extends Eventable {
      * 
      * @memberOf TodoListItem
      */
-    render(parentNode){
+    render(){
 
         this._checkbox = gen('input', {
             type: 'checkbox',
@@ -73,12 +77,13 @@ export default class TodoListItem extends Eventable {
         });
         this._textArea = gen('textarea', {
             className: 'todos-list_item_text', 
+            value: this.textVal,
             oninput: ()=> this.autoresize(),
             onfocus: ()=> this._onTextFocus(), 
             onblur: ()=> this._onTextBlur()
         });
 
-        return parentNode.appendChild(
+        this.DOMNode = this.parentNode.appendChild(
             gen('div', {className: 'todos-list_item'}, [
                 gen('div', {className: 'custom-checkbox todos-list_item_ready-marker'}, [
                     this._checkbox,
@@ -92,6 +97,21 @@ export default class TodoListItem extends Eventable {
                 ])
             ])
         )
+    }
+
+    connectToDOM(){
+        this._checkbox = this.DOMNode.querySelector('.custom-checkbox_target');
+        this._checkbox.onclick = ()=> this.change();
+
+        this._textArea = this.DOMNode.querySelector('.todos-list_item_text');
+        this._textArea.oninput = ()=> this.autoresize();
+        this._textArea.onfocus = ()=> this._onTextFocus();
+        this._textArea.onblur  = ()=> this._onTextBlur();
+
+        this._removeBtn = this.DOMNode.querySelector('.cross-button');
+        this._removeBtn.onclick = ()=> this.remove();
+
+        return this.DOMNode;
     }
     remove(){
         this.trigger('remove');

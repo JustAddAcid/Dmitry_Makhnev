@@ -6,8 +6,8 @@ export default class Todo {
 
     /**
      * Creates an instance of Todo.
-     * @param {Object} parentNode 
-     * 
+     * @param {Object} parentNode
+     *
      * @memberOf Todo
      */
     constructor(parentNode){
@@ -22,17 +22,12 @@ export default class Todo {
     }
 
     /**
-     * Render Todo outer
-     * 
-     * @param {Object} parentNode 
-     * 
+     * Connection to existing dom element
+     *
+     * @param {Object} parentNode
+     *
      * @memberOf Todo
      */
-    // render(parentNode){
-    //     this._board = gen('div', {className : 'todo-board'});
-    //     return parentNode.appendChild(this._board);
-    // }
-
     connectToDOM(parentNode){
         this._board = parentNode.querySelector('.todo-board');
         return this._board;

@@ -6,11 +6,10 @@ import Model from "./Model";
 export default class TodoList extends Eventable {
     /**
      * Creates an instance of TodoList.
-     * @param {Control} parentNode 
-     * 
+     *
      * @memberOf TodoList
      */
-    constructor(parentNode){
+    constructor(){
         super();
         this.DOMNode = this.connectToDOM();
         this.items = new ArrayEventable();
@@ -23,34 +22,17 @@ export default class TodoList extends Eventable {
             let isChecked = todo.querySelector('input').checked;
             this.createItemWithoutRender(id, text, isChecked, todo);
         }
-        // this.model.read().then(data => {
-        //     data.forEach(todo => {
-        //         this.renderItem(todo.id, todo.description, todo.isChecked);
-        //     })
-        // });
     }
-    /**
-     * 
-     * 
-     * @param {Control} parentNode 
-     * 
-     * @memberOf TodoList
-     */
-    // render(parentNode){
-    //     return parentNode.appendChild(
-    //         gen('div', {className : 'todos-list'})
-    //     );
-    // }
 
     connectToDOM(){
         return document.querySelector('.todos-list');
     }
 
     /**
-     * 
-     * 
+     * Returns count of contains todo elements
+     *
      * @returns {Number}
-     * 
+     *
      * @memberOf TodoList
      */
     getItemsCount(){
@@ -58,11 +40,11 @@ export default class TodoList extends Eventable {
     }
 
     /**
-     * 
-     * 
-     * @param {String} text 
-     * @param {Boolean} isChecked 
-     * 
+     * Add new element to list
+     *
+     * @param {String} text
+     * @param {Boolean} isChecked
+     *
      * @memberOf TodoList
      */
     addItem(text, isChecked){
@@ -77,15 +59,17 @@ export default class TodoList extends Eventable {
                 this.trigger('notEmpty');
             }
             return item;
-        });        
+        });
     }
 
     /**
-     * 
-     * @param  {Number} id 
-     * @param  {String} text 
-     * @param  {Boolean} isChecked 
-     * @return {void}
+     * Creates TodoListItem object without generation new DOM elements
+     * Connect to existing element, which passed in param "itemNode"
+     *
+     * @param  {Number} id
+     * @param  {String} text
+     * @param  {Boolean} isChecked
+     * @return {TodoListItem}
      * @memberof TodoList
      */
     createItemWithoutRender(id, text, isChecked, itemNode){
@@ -102,10 +86,10 @@ export default class TodoList extends Eventable {
     }
 
     /**
-     * Удаляет элемент item из TodoList
-     * 
-     * @param {TodoListItem} item 
-     * 
+     * Removing element (item) from TodoList
+     *
+     * @param {TodoListItem} item
+     *
      * @memberOf TodoList
      */
     removeItem(item){
@@ -118,10 +102,10 @@ export default class TodoList extends Eventable {
         this.model.delete(item.id);
     }
     /**
-     * 
-     * 
+     * Returns count of unchecked elements
+     *
      * @returns {Number} count of unchecked elements
-     * 
+     *
      * @memberOf TodoList
      */
     getUncheckedCount(){
@@ -130,9 +114,8 @@ export default class TodoList extends Eventable {
         return unchecked;
     }
     /**
-     * 
-     * 
-     * 
+     * Delete compleated todo
+     *
      * @memberOf TodoList
      */
     clearCompleated(){

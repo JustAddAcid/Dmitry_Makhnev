@@ -1,45 +1,55 @@
 export default class Model {
+    /**
+     * Creates an instance of Model.
+     *
+     * @memberOf Model
+     */
     constructor(){
         this.path = '/todo';
     }
+
     /**
-     * `
-     * @param  {String} description 
+     * Create new todo
+     * @param  {String} description
      * @return {Promise}
      * @memberof Model
      */
     create(description){
         return this._xhr('POST', {description});
     }
+
     /**
-     * 
+     * Read list of todo
      * @return {Promise}
      * @memberof Model
      */
     read(){
         return this._xhr('GET');
     }
+
     /**
-     * 
-     * @param  {Number} id 
-     * @param  {String} description 
+     * Update todo by id
+     * @param  {Number} id
+     * @param  {String} description
      * @return {Promise}
      * @memberof Model
      */
     update(id, description, isChecked){
         return this._xhr('PUT', {id, description, isChecked});
     }
+
     /**
-     * 
-     * @param  {Number} id 
+     * Delete todo by id
+     * @param  {Number} id
      * @return {Promise}
      * @memberof Model
      */
     delete(id){
         return this._xhr('DELETE', {id});
     }
+
     /**
-     * 
+     * XML HTTP request method
      * @param  {String} method Name of method
      * @param  {Object} data Data to send to server
      * @return {Promise}
@@ -62,14 +72,15 @@ export default class Model {
                         statusText: xhr.statusText
                     });
                 }
-                resolve(JSON.parse(xhr.responseText));                
+                resolve(JSON.parse(xhr.responseText));
             }
         });
-        
+
     }
+
     /**
-     * 
-     * @param  {Object} [object={}] 
+     * Method creates FormData from Object
+     * @param  {Object} [object={}]
      * @return {FormData}
      * @memberof Model
      */

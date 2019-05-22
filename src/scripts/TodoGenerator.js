@@ -4,9 +4,9 @@ import TodoList from "./TodoList";
 export default class TodoGenerator {
     /**
      * Creates an instance of TodoGenerator.
-     * @param {Control} parentNode 
-     * @param {TodoList} todoList 
-     * 
+     * @param {Control} parentNode
+     * @param {TodoList} todoList
+     *
      * @memberOf TodoGenerator
      */
     constructor(parentNode, todoList){
@@ -14,8 +14,7 @@ export default class TodoGenerator {
         this.DOMNode = this.render(parentNode);
     }
 
-
-    // Кустарный вариант двустороннего биндинга
+    // Two-way binding
     get input(){
         return this._inputControl.value;
     }
@@ -24,10 +23,10 @@ export default class TodoGenerator {
     }
 
     /**
-     * 
-     * 
-     * @param {Event} event 
-     * 
+     * Submit form callback
+     *
+     * @param {Event} event
+     *
      * @private
      * @memberOf TodoGenerator
      */
@@ -38,21 +37,22 @@ export default class TodoGenerator {
         this.input = '';
         event.preventDefault();
     }
+
     /**
-     * 
-     * 
-     * 
+     * Check all callback
+     *
      * @memberOf TodoGenerator
      */
     checkAll(){
         this.todoList.items.array.forEach( item => item.isChecked = true);
     }
+
     /**
-     * 
-     * 
-     * @param {Control} parentNode 
+     * Render control to DOM
+     *
+     * @param {Control} parentNode
      * @returns {Control} Html outer of Todo Generator
-     * 
+     *
      * @memberOf TodoGenerator
      */
     render(parentNode){

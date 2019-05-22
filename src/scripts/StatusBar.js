@@ -4,9 +4,9 @@ import TodoList from "./TodoList";
 export default class StatusBar {
     /**
      * Creates an instance of StatusBar.
-     * @param {Control} parentNode 
-     * @param {TodoList} todoList 
-     * 
+     * @param {Control} parentNode
+     * @param {TodoList} todoList
+     *
      * @memberOf StatusBar
      */
     constructor(parentNode, todoList){
@@ -23,7 +23,7 @@ export default class StatusBar {
         this.todoList.on('itemchanged', () => this.leftCount = this.todoList.getUncheckedCount());
     }
 
-    // Кустарный вариант двустороннего биндинга
+    // Two-way binding
     get leftCount(){
         if (this._itemsLeftCounter){
             return this._itemsLeftCounter.textContent;
@@ -68,11 +68,11 @@ export default class StatusBar {
     }
 
     /**
-     * 
-     * 
-     * @param {Control} parentNode 
+     *
+     *
+     * @param {Control} parentNode
      * @returns {Control}
-     * 
+     *
      * @memberOf StatusBar
      */
     render(parentNode){

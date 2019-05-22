@@ -4,12 +4,13 @@ export default class Eventable {
     constructor(){
         this.listeners = {}; // event : [listener1(), listener2()]
     }
+
     /**
      * Register listener on event
-     * 
-     * @param {String} event 
-     * @param {function()} callback 
-     * 
+     *
+     * @param {String} event
+     * @param {function()} callback
+     *
      * @memberOf Eventable
      */
     on(event, callback){
@@ -19,11 +20,11 @@ export default class Eventable {
 
     /**
      * Remove listener on event
-     * 
-     * @param {String} event 
-     * @param {function()} callback 
+     *
+     * @param {String} event
+     * @param {function()} callback
      * @returns {Boolean}
-     * 
+     *
      * @memberOf Eventable
      */
     off(event, callback){
@@ -45,10 +46,10 @@ export default class Eventable {
 
     /**
      * Fire the event
-     * 
-     * @param {String} event 
-     * @param {object[]} args 
-     * 
+     *
+     * @param {String} event
+     * @param {object[]} args
+     *
      * @memberOf Eventable
      */
     trigger(event, ...args){

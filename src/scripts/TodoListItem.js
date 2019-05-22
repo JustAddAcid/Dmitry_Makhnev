@@ -5,17 +5,17 @@ import Model from "./Model";
 export default class TodoListItem extends Eventable {
     /**
      * Creates an instance of TodoListItem.
-     * @param {Control} parentNode 
-     * @param {String} text 
+     * @param {Control} parentNode
+     * @param {String} text
      * @param {Number} id
-     * @param {Boolean} isChecked 
-     * 
+     * @param {Boolean} isChecked
+     * @param {Object} DOMNode - optional (if required connection to existing dom element)
+     *
      * @memberOf TodoListItem
      */
     constructor(parentNode, text, id, isChecked, DOMNode){
         super();
         this.model = new Model();
-        // this.DOMNode = this.render(parentNode);
         this.parentNode = parentNode;
         this.DOMNode = DOMNode;
 
@@ -26,7 +26,7 @@ export default class TodoListItem extends Eventable {
         this.textVal = text;
     }
 
-    // Кустарный вариант двустороннего биндинга
+    // Two-way binding
     get isChecked(){
         if (this._checkbox){
             return this._checkbox.checked;
@@ -52,6 +52,7 @@ export default class TodoListItem extends Eventable {
         }
     }
 
+    // Event callbacks
     _onTextFocus(){
         this._lastText = this.text;
     }
@@ -60,26 +61,24 @@ export default class TodoListItem extends Eventable {
             this.model.update(this.id, this.text, this.isChecked);
         }
     }
+
     /**
-     * 
-     * 
-     * @param {any} parentNode 
-     * @returns {Control}
-     * 
+     * Render to DOM
+     *
      * @memberOf TodoListItem
      */
     render(){
 
         this._checkbox = gen('input', {
             type: 'checkbox',
-            className: 'custom-checkbox_target', 
+            className: 'custom-checkbox_target',
             onclick: ()=> this.change()
         });
         this._textArea = gen('textarea', {
-            className: 'todos-list_item_text', 
+            className: 'todos-list_item_text',
             value: this.textVal,
             oninput: ()=> this.autoresize(),
-            onfocus: ()=> this._onTextFocus(), 
+            onfocus: ()=> this._onTextFocus(),
             onblur: ()=> this._onTextBlur()
         });
 
@@ -99,6 +98,11 @@ export default class TodoListItem extends Eventable {
         )
     }
 
+    /**
+     * Connect to existing DOM Elements
+     *
+     * @memberOf TodoListItem
+     */
     connectToDOM(){
         this._checkbox = this.DOMNode.querySelector('.custom-checkbox_target');
         this._checkbox.onclick = ()=> this.change();
@@ -113,19 +117,22 @@ export default class TodoListItem extends Eventable {
 
         return this.DOMNode;
     }
+
     remove(){
         this.trigger('remove');
     }
+
     change(){
         this.trigger('change');
         this.model.update(this.id, this.text, this.isChecked);
         if (this.isChecked){
-            this._textArea.style.textDecoration = 'line-through';    
+            this._textArea.style.textDecoration = 'line-through';
         } else {
-            this._textArea.style.textDecoration = 'none';    
+            this._textArea.style.textDecoration = 'none';
         }
     }
-    autoresize(){ 
+
+    autoresize(){
         this._textArea.style.height = '36px';
         this._textArea.style.height = this._textArea.scrollHeight + 'px';
     }
